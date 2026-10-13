@@ -1,0 +1,162 @@
+{
+ "shot_glock": {
+  "dur": 1.35,
+  "kb": 19.3,
+  "src": "828786"
+ },
+ "shot_revolver": {
+  "dur": 2.145,
+  "kb": 30.4,
+  "src": "683175"
+ },
+ "shot_p90": {
+  "dur": 0.75,
+  "kb": 11.1,
+  "src": "740896"
+ },
+ "shot_mp7": {
+  "dur": 1.3,
+  "kb": 18.6,
+  "src": "676588"
+ },
+ "shot_ak47": {
+  "dur": 2.0,
+  "kb": 28.3,
+  "src": "855843"
+ },
+ "shot_scar": {
+  "dur": 1.5,
+  "kb": 21.5,
+  "src": "702225"
+ },
+ "shot_kar98": {
+  "dur": 2.03,
+  "kb": 28.6,
+  "src": "802675"
+ },
+ "shot_m700": {
+  "dur": 1.5,
+  "kb": 21.5,
+  "src": "855607"
+ },
+ "supp_pistol": {
+  "dur": 0.62,
+  "kb": 8.0,
+  "src": "828790"
+ },
+ "supp_smg": {
+  "dur": 0.78,
+  "kb": 9.8,
+  "src": "732250"
+ },
+ "shot_far": {
+  "dur": 1.69,
+  "kb": 17.1,
+  "src": "855653"
+ },
+ "bolt_kar98": {
+  "dur": 1.49,
+  "kb": 18.4,
+  "src": "802673"
+ },
+ "bolt_m700": {
+  "dur": 1.25,
+  "kb": 15.3,
+  "src": "171703"
+ },
+ "rl_glock": {
+  "dur": 1.65,
+  "kb": 16.9,
+  "ref": 1.4
+ },
+ "rl_revolver": {
+  "dur": 2.95,
+  "kb": 29.4,
+  "ref": 2.7
+ },
+ "rl_p90": {
+  "dur": 2.65,
+  "kb": 26.6,
+  "ref": 2.4
+ },
+ "rl_mp7": {
+  "dur": 2.15,
+  "kb": 21.7,
+  "ref": 1.9
+ },
+ "rl_ak47": {
+  "dur": 2.75,
+  "kb": 27.6,
+  "ref": 2.5
+ },
+ "rl_scar": {
+  "dur": 2.35,
+  "kb": 23.5,
+  "ref": 2.1
+ },
+ "rl_kar98": {
+  "dur": 3.25,
+  "kb": 32.4,
+  "ref": 3.0
+ },
+ "rl_m700": {
+  "dur": 2.85,
+  "kb": 28.6,
+  "ref": 2.6
+ },
+ "eng_sedan": {
+  "dur": 3.24,
+  "kb": 38.9,
+  "loopStart": 0.12,
+  "loopEnd": 3.12,
+  "src": "748027"
+ },
+ "eng_pickup": {
+  "dur": 4.24,
+  "kb": 50.6,
+  "loopStart": 0.12,
+  "loopEnd": 4.12,
+  "src": "867093"
+ },
+ "eng_jeep": {
+  "dur": 4.24,
+  "kb": 50.6,
+  "loopStart": 0.12,
+  "loopEnd": 4.12,
+  "src": "610776"
+ },
+ "eng_truck": {
+  "dur": 4.24,
+  "kb": 50.6,
+  "loopStart": 0.12,
+  "loopEnd": 4.12,
+  "src": "435656"
+ },
+ "eng_tractor": {
+  "dur": 4.24,
+  "kb": 50.6,
+  "loopStart": 0.12,
+  "loopEnd": 4.12,
+  "src": "637884"
+ },
+ "start_pickup": {
+  "dur": 1.6,
+  "kb": 16.4,
+  "src": "867093"
+ },
+ "start_jeep": {
+  "dur": 2.6,
+  "kb": 26.1,
+  "src": "610776"
+ },
+ "start_truck": {
+  "dur": 3.2,
+  "kb": 31.9,
+  "src": "435656"
+ },
+ "start_tractor": {
+  "dur": 1.994,
+  "kb": 20.2,
+  "src": "707744"
+ }
+}

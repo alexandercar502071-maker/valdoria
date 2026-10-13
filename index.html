@@ -1,0 +1,282 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover" />
+  <meta name="theme-color" content="#15110e" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="screen-orientation" content="landscape" />
+  <meta name="x5-orientation" content="landscape" />
+  <meta name="full-screen" content="yes" />
+  <link rel="manifest" href="./manifest.webmanifest" />
+  <link rel="icon" href="./icon.svg" />
+  <title>Valdoria · Mundo abierto</title>
+  <script type="module" crossorigin src="./assets/index-BuDh6MD9.js"></script>
+  <link rel="stylesheet" crossorigin href="./assets/index-2a4aJYzJ.css">
+</head>
+<body>
+  <div id="game"></div>
+
+  <!-- MENU -->
+  <div id="menu" class="panel menu">
+    <div class="eyebrow">Mundo abierto · v14</div>
+    <h1>Valdoria</h1>
+    <div id="dbgMenu" class="dbgbadge hidden">🧪 MODO PRUEBA · todo desbloqueado · guardado aparte</div>
+    <div id="saveInfo" class="saveinfo hidden"></div>
+    <div class="menucta">
+      <button id="enter" class="primary">Entrar a la ciudad</button>
+      <div class="menurow">
+        <button id="newGame" class="secondary hidden">Nueva partida</button>
+        <button id="menuSettings" class="secondary">⚙ Ajustes</button>
+      </div>
+    </div>
+    <p class="lead">Arrancás con los puños y un hacha: hachá leña, cazá en el bosque, hacé trabajos, ganá plata, armate en la Armería y defendé Valdoria. El clima cambia mientras jugás.</p>
+    <div class="chiplabel">Empezar en (mismo mundo, sin cargas)</div>
+    <div class="chips">
+      <button class="chip active" data-area="city">🏛 Ciudad Central</button>
+      <button class="chip" data-area="forest">🌲 Bosque de los Pinos</button>
+      <button class="chip" data-area="industrial">🏭 Distrito Industrial</button>
+      <button class="chip" data-area="valley">🌾 Valle Agrícola</button>
+      <button class="chip" data-area="harbor">⚓ Puerto con el faro</button>
+      <button class="chip" data-area="base">🎖 Base Militar</button>
+      <button class="chip" data-area="mine">⛏ Minas</button>
+      <button class="chip" data-area="sawmill">🪵 Aserradero</button>
+      <button class="chip special" data-area="cuervo">☠ Isla Cuervo · especial</button>
+    </div>
+    <div class="quality">
+      <span>Calidad</span>
+      <button class="qbtn" data-q="high">Alta</button>
+      <button class="qbtn" data-q="low">Equilibrada</button>
+      <button class="qbtn" data-q="perf">Rendimiento</button>
+    </div>
+    <div class="qhint" id="qHint"></div>
+    <div class="hint" id="menuHint">Escritorio: WASD · Shift corre · clic dispara · clic der. apunta · C agacharse/deslizar · Z tirarse · Espacio salta · Q o 1-7 armas (G: lista) · V hacha/cuchillo · E usar / abrir puertas / subir al vehículo · L linterna · B mochila (equipo) · H botiquín</div>
+  </div>
+
+  <div id="loading" class="loading hidden"><div class="spinner"></div><span>Cargando…</span></div>
+
+  <!-- HUD -->
+  <div id="hud" class="hidden">
+    <div class="tl">
+      <div class="area" id="areaName">Ciudad Central</div>
+      <div id="dbgHud" class="dbghud hidden">🧪 PRUEBA</div>
+      <div class="objective" id="objective">Hablá con la capitana Neria, en la plaza.</div>
+      <div class="weather" id="weather">☀️ Soleado</div>
+      <div id="stealth" class="stealth hidden"><div id="stState">👁 Oculto</div><div class="stbar"><i id="stBar"></i></div><div id="stRange" class="strange"></div></div>
+    </div>
+    <div class="tr">
+      <button id="pauseBtn" class="small">Pausa</button>
+      <canvas id="minimap" width="150" height="150"></canvas>
+      <div class="fps" id="fps"></div>
+    </div>
+    <div class="bl">
+      <div class="rankrow"><span id="rank">RECLUTA</span><span class="marks" id="money">$0</span><span class="stance" id="stance"></span></div>
+      <div class="bar"><div id="health"></div></div>
+      <div class="bar armor hidden" id="armorBar"><div id="armor"></div></div>
+    </div>
+    <div class="br" id="ammoBox"><div class="wname" id="wname">Puños</div><div class="wcond" id="wcond"></div><span id="ammo">12</span><span class="reserve">/ <span id="reserve">36</span></span><div class="reloading hidden" id="reloadTxt">Recargando…</div></div>
+    <div id="navHud" class="navHud hidden"><div id="navArrow" class="navArrow">➤</div><div class="navTxt"><b id="navName">Isla Cuervo</b><span id="navDist">0 m</span></div></div>
+    <div id="speedo" class="speedo hidden"><div><b id="spdV">0</b><small id="spdU">km/h</small></div><span id="spdName"></span></div>
+    <div id="crosshair"><i></i><i></i><i></i><i></i></div>
+    <div id="hitmarker"></div>
+    <div id="prompt" class="hidden"><kbd>E</kbd> <span id="promptTxt">Hablar con la capitana Neria</span></div>
+    <div id="toast" class="hidden"></div>
+    <div id="bag" class="bag hidden"></div>
+    <div id="banner" class="panel banner">
+      <span id="bannerText">WASD mueve, Shift corre. Clic dispara, clic derecho apunta (F fija la mira). C agacharse (corriendo: deslizar), Z tirarse (corriendo: saltar), Espacio salta. Q o 1-7 cambian de arma (G abre la lista), V saca el hacha o el cuchillo. E usa. B abre la mochila (equipo), H usa un botiquín. Manejando: H bocina.</span>
+      <button id="bannerOk" class="okbtn">Entendido</button>
+    </div>
+    <div id="dialog" class="panel dialog hidden">
+      <div class="speaker">Capitana Neria</div>
+      <div id="dialogText"></div>
+      <div class="next">E / tocar para continuar ▸</div>
+    </div>
+  </div>
+  <div id="scope"><div class="reticle"></div><div class="mils"></div><div class="lsight"></div><div id="scopeZoom"></div><div id="scopeRange"></div></div>
+  <div id="damage"></div>
+  <div id="uavHud" class="hidden"><div class="uavRec">● REC · DRON</div><div class="uavCross"></div><div id="uavInfo"></div></div>
+  <div id="bigTitle"></div>
+
+  <!-- TOUCH -->
+  <div id="touch" class="hidden">
+    <div id="stickBase"><div id="stickKnob"></div></div>
+    <button id="tFire" class="tbtn fire">🎯</button>
+    <button id="tAim" class="tbtn lbl"><b>🔍</b><i>MIRA</i></button>
+    <button id="tReload" class="tbtn lbl"><b>↻</b><i>Recargar</i></button>
+    <button id="tCrouch" class="tbtn lbl"><b>⬇</b><i>Agacharse</i></button>
+    <button id="tProne" class="tbtn lbl"><b>⏬</b><i>Tirarse</i></button>
+    <button id="tUse" class="tbtn">E</button>
+    <button id="tSwap" class="tbtn lbl"><b>⇄</b><i>Arma</i></button>
+    <button id="tKnife" class="tbtn lbl"><b>🪓</b><i>Hacha</i></button>
+    <button id="tRun" class="tbtn lbl"><b>»</b><i>Correr</i></button>
+    <button id="tJump" class="tbtn lbl"><b>⤒</b><i>Saltar</i></button>
+    <button id="tLight" class="tbtn lbl"><b>🔦</b><i>Luz</i></button>
+    <button id="tBrake" class="tbtn lbl"><b>⛔</b><i>Freno</i></button>
+    <button id="tCam" class="tbtn lbl"><b>📷</b><i>Cámara</i></button>
+    <button id="tBag" class="tbtn lbl"><b>🎒</b><i>Mochila</i></button>
+    <button id="tHeal" class="tbtn lbl"><b>🩹</b><i>×0</i></button>
+    <button id="tBinoc" class="tbtn lbl"><b>🔭</b><i>Larga v.</i></button>
+    <button id="tUav" class="tbtn lbl"><b>🛸</b><i>Dron</i></button>
+    <button id="tUp" class="tbtn lbl"><b>▲</b><i>Subir</i></button>
+    <button id="tDown" class="tbtn lbl"><b>▼</b><i>Bajar</i></button>
+    <button id="tVWpn" class="tbtn lbl"><b>🔫</b><i>Arma</i></button>
+    <div id="tZoom" class="tzoom"><span class="zmax">12×</span><div class="ztrack"><div class="zline"></div><div class="zthumb"><span class="zval">×8</span></div></div><span class="zmin">8×</span></div>
+  </div>
+
+  <!-- PAUSE -->
+  <div id="pause" class="overlay hidden">
+    <div class="panel">
+      <div class="eyebrow">Pausa</div>
+      <h2>Valdoria</h2>
+      <div class="pweather" id="pauseWeather"></div>
+      <button id="resume" class="primary">Continuar</button>
+      <button id="pauseSettings" class="secondary">⚙ Ajustes</button>
+      <div class="saverow"><button id="pSave" class="secondary">💾 Guardar</button><button id="pLoad" class="secondary">📂 Cargar</button><button id="pClear" class="secondary danger">🗑 Borrar</button></div>
+      <div id="pauseSaveMsg" class="savemsg hidden"></div>
+      <button id="pVeh" class="secondary hidden">🚗 Traer mi vehículo</button>
+      <button id="pCuervo" class="secondary special">☠ Isla Cuervo · misión especial (lancha)</button>
+      <div class="saverow"><button id="pBrief" class="secondary hidden">📋 Briefing</button><button id="pRestart" class="secondary hidden">↺ Reiniciar operación</button></div>
+      <button id="pMap" class="secondary">🗺 Mapa de la isla</button>
+      <button id="travel" class="secondary">Viajar al Bosque de los Pinos</button>
+      <button id="travelInd" class="secondary">Atajo: ir al Distrito Industrial</button>
+      <button id="travelVal" class="secondary">Atajo: ir al Valle Agrícola</button>
+      <div id="dbgPause" class="dbgbox hidden">
+        <div class="dbgtitle">🧪 Modo prueba</div>
+        <div class="saverow"><button id="dbgGod" class="secondary">🛡 Invencible: NO</button><button id="dbgRefill" class="secondary">🔄 Recargar todo</button></div>
+        <div class="saverow"><button id="dbgSkip" class="secondary">⏭ Saltar fase (modo prueba)</button></div>
+        <div class="saverow"><button id="dbgDay" class="secondary">☀ Mediodía</button><button id="dbgNight" class="secondary">🌙 Noche</button></div>
+        <button id="dbgOff" class="secondary danger">Salir del modo prueba</button>
+      </div>
+      <button id="toMenu" class="secondary">Menú principal</button>
+    </div>
+  </div>
+  <div id="mapView" class="overlay hidden">
+    <div class="mapwrap">
+      <canvas id="mapCanvas" width="900" height="1050"></canvas>
+      <div class="mapside">
+        <div class="eyebrow" id="mapIsle">Isla de Valdoria</div>
+        <h2>Mapa</h2>
+        <p class="maphint" id="mapHint">Tocá un lugar marcado con ● para ir (atajo PROVISIONAL, para probar rápido).</p>
+        <div id="mapWhere" class="maphint"></div>
+        <button id="mapClose" class="primary">Cerrar mapa</button>
+      </div>
+    </div>
+  </div>
+  <div id="shop" class="overlay hidden">
+    <div class="panel shoppanel">
+      <div class="shophead"><div><div class="eyebrow">Ciudad Central</div><h2>Armería de Valdoria</h2></div><div class="cash" id="shopMoney">$0</div></div>
+      <div class="shoplist" id="shopList"></div>
+      <button id="shopClose" class="secondary">Salir de la Armería</button>
+    </div>
+  </div>
+  <div id="trade" class="overlay hidden">
+    <div class="panel shoppanel">
+      <div class="shophead"><div><div class="eyebrow">Vender</div><h2 id="tradeTitle">Almacén</h2></div></div>
+      <div class="shoplist" id="tradeList"></div>
+      <button id="tradeAll">Vender todo</button>
+      <button id="tradeClose" class="secondary">Cerrar</button>
+    </div>
+  </div>
+  <div id="gunsmith" class="overlay hidden">
+    <div class="panel shoppanel gspanel">
+      <div class="shophead"><div><div class="eyebrow">Banco del armero · provisional</div><h2 id="gsName">Arma</h2></div><div class="cash" id="gsMoney"></div></div>
+      <div class="gsTabs" id="gsTabs"></div>
+      <div class="gsMain">
+        <div class="gsStats" id="gsStats"></div>
+        <div class="gsCenter"><canvas id="gsPic" width="512" height="256"></canvas><div class="gsSlots" id="gsSlots"></div></div>
+      </div>
+      <div class="shoplist gsOpts" id="gsOpts"></div>
+      <button id="gsClose" class="secondary">Cerrar</button>
+    </div>
+  </div>
+  <div id="wpick" class="wpick hidden"><div class="wpickList" id="wpickList"></div><button id="wpickClose" class="secondary small">Cerrar</button></div>
+  <div id="jobs" class="overlay hidden">
+    <div class="panel shoppanel">
+      <div class="shophead"><div><div class="eyebrow">Tablón de trabajos</div><h2>Trabajos chicos</h2></div></div>
+      <div class="shoplist" id="jobsList"></div>
+      <button id="jobsClose" class="secondary">Cerrar</button>
+    </div>
+  </div>
+  <!-- v14: MOCHILA / EQUIPO -->
+  <div id="bagPanel" class="overlay hidden">
+    <div class="panel shoppanel bagpanel">
+      <div class="shophead"><div><div class="eyebrow">Mochila · equipo</div><h2>¿Qué llevás?</h2></div><button id="bagClose" class="okbtn">Listo</button></div>
+      <div class="bagslots" id="bagSlots"></div>
+      <div class="bagcols">
+        <div class="bagcol"><div class="sect" id="bagListTitle">Armas</div><div class="shoplist" id="bagList"></div></div>
+        <div class="bagcol">
+          <div class="sect">Equipamiento</div><div id="bagGear"></div><button id="bagHeal" class="secondary">Usar botiquín</button>
+          <div class="sect">Sigilo · a cuántos metros te detectan</div><div id="bagStealth"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- v14: BRIEFING DE LA MISIÓN ESPECIAL -->
+  <div id="brief" class="overlay hidden">
+    <div class="panel shoppanel briefpanel">
+      <div class="eyebrow special">☠ Misión especial</div>
+      <h2>Operación Marea Negra</h2>
+      <div class="shoplist">
+        <p>El grupo armado que atacó Valdoria no actuaba solo: era una avanzada de <b>la célula del Cuervo</b>, que tiene su base en esta isla. Desde acá planean el próximo golpe.</p>
+        <p><b>Objetivos:</b> eliminar a su jefe, <b>"El Cuervo"</b> (Fortaleza, Casa del Comandante) · recuperar los <b>planos del ataque</b> (en su mesa) · <b>volar el Depósito de Armas</b> (carga de 10 s).<br><b>Opcionales:</b> sabotear la <b>radio del Cerro Antena</b> (sin radio no piden refuerzos) · apagar el <b>generador</b> de la fortaleza (de noche se apagan los reflectores).</p>
+        <p><b>Vos decidís cuándo, por dónde y cómo.</b> Mirá desde el cerro con la larga vista o la mira (mantené el arma apuntando a un guardia ~0,5 s y queda marcado ▼). Los tiradores en las torres ven muy lejos. Si te descubren dan la alarma y se avisan entre ellos. Los ataques por la espalda con cuchillo o puños son silenciosos. Un disparo sin silenciador se oye en media isla.</p>
+        <div class="sect">A cuántos metros te detectan</div>
+        <div id="briefTable"></div>
+        <p class="dnote">Arriba a la izquierda tenés el indicador 👁 (Oculto / Sospechan / ¡Te vieron!) con el alcance actual. 🎒 Mochila (tecla B): armas y equipo. 🩹 botiquín (tecla H). Para salir: la lancha de la Caleta Escondida.</p>
+      </div>
+      <button id="briefOk" class="primary">A trabajar</button>
+    </div>
+  </div>
+  <div id="fade" class="fade hidden"><span></span></div>
+  <!-- SETTINGS -->
+  <div id="settings" class="overlay hidden">
+    <div class="panel shoppanel setpanel">
+      <div class="shophead"><div><div class="eyebrow">Configuración</div><h2>Ajustes</h2></div><div id="setFlash" class="setflash"></div></div>
+      <div class="stabs">
+        <button class="stab active" data-tab="sens">Sensibilidad</button>
+        <button class="stab" data-tab="buttons">Botones</button>
+        <button class="stab" data-tab="controls">Controles</button>
+        <button class="stab" data-tab="keys">Teclado</button>
+      </div>
+      <div class="shoplist" id="setBody"></div>
+      <div class="setfoot">
+        <button id="setReset" class="secondary">Restablecer todo</button>
+        <button id="setClose" class="primary">Volver</button>
+      </div>
+    </div>
+  </div>
+  <div id="layoutEditor" class="hidden">
+    <div class="panel edbar">
+      <div class="edrow"><b id="edName">Tocá un botón para elegirlo</b><span class="edhint">Arrastralo a cualquier lugar: arriba, abajo, al medio o al otro lado</span><button id="edBarPos" class="small" title="Mover esta barra">⇅ Barra</button></div>
+      <div class="edrow edsel-only">
+        <span>Tamaño</span><input id="edSize" type="range" min="0.5" max="2" step="0.05" value="1" /><span id="edSizeVal" class="sval">100%</span>
+        <span class="ednudge"><button class="small" data-nx="-1" data-ny="0">←</button><button class="small" data-nx="0" data-ny="-1">↑</button><button class="small" data-nx="0" data-ny="1">↓</button><button class="small" data-nx="1" data-ny="0">→</button></span>
+        <button id="edMirror" class="small" title="Pasarlo al otro lado de la pantalla">⇆ Otro lado</button>
+        <button id="edHide" class="small">Ocultar</button>
+        <button id="edResetOne" class="small">Original</button>
+      </div>
+      <div class="edrow">
+        <button id="edMirrorAll" class="small">⇆ Espejar todo (zurdo)</button>
+        <button id="edResetPos" class="small">Todo original</button>
+        <button id="edDone" class="okbtn">Listo</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="dead" class="overlay hidden">
+    <div class="panel">
+      <div class="eyebrow">Caíste</div>
+      <h2>La vigía no termina acá</h2>
+      <button id="respawn" class="primary">Reaparecer</button>
+    </div>
+  </div>
+
+  <div id="rotate" class="rotate">
+    <div class="phone">📱</div>
+    <p>Girá el teléfono en horizontal para jugar</p>
+  </div>
+
+</body>
+</html>
