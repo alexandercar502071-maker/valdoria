@@ -13,8 +13,8 @@
   <link rel="manifest" href="./manifest.webmanifest" />
   <link rel="icon" href="./icon.svg" />
   <title>Valdoria · Mundo abierto</title>
-  <script type="module" crossorigin src="./assets/index-iICCKIh9.js"></script>
-  <link rel="stylesheet" crossorigin href="./assets/index-DVKrlldg.css">
+  <script type="module" crossorigin src="./assets/index-BgP9J8fb.js"></script>
+  <link rel="stylesheet" crossorigin href="./assets/index-DN4ECHhV.css">
 </head>
 <body>
   <div id="game"></div>
@@ -120,6 +120,7 @@
     <button id="tHeal" class="tbtn lbl"><b>🩹</b><i>×0</i></button>
     <button id="tBinoc" class="tbtn lbl"><b>🔭</b><i>Larga v.</i></button>
     <button id="tUav" class="tbtn lbl"><b>🛸</b><i>Dron</i></button>
+    <button id="tVision" class="tbtn lbl"><b>🌙</b><i>Visión</i></button>
     <button id="tUp" class="tbtn lbl"><b>▲</b><i>Subir</i></button>
     <button id="tDown" class="tbtn lbl"><b>▼</b><i>Bajar</i></button>
     <button id="tVWpn" class="tbtn lbl"><b>🔫</b><i>Arma</i></button>
@@ -174,6 +175,13 @@
       <button id="shopClose" class="secondary">Salir de la Armería</button>
     </div>
   </div>
+  <div id="dealer" class="overlay hidden">
+    <div class="panel shoppanel dealpanel">
+      <div class="shophead"><div><div class="eyebrow">Puerto de Valdoria ⚓</div><h2>Concesionaria Valdoria</h2></div><div class="cash" id="dealMoney">$0</div></div>
+      <div class="shoplist" id="dealList"></div>
+      <button id="dealClose" class="secondary">Salir de la Concesionaria</button>
+    </div>
+  </div>
   <div id="trade" class="overlay hidden">
     <div class="panel shoppanel">
       <div class="shophead"><div><div class="eyebrow">Vender</div><h2 id="tradeTitle">Almacén</h2></div></div>
@@ -188,7 +196,7 @@
       <div class="gsTabs" id="gsTabs"></div>
       <div class="gsMain">
         <div class="gsStats" id="gsStats"></div>
-        <div class="gsCenter"><canvas id="gsPic" width="512" height="256"></canvas><div class="gsSlots" id="gsSlots"></div></div>
+        <div class="gsCenter"><canvas id="gsPic" width="768" height="384"></canvas><div class="gsSlots" id="gsSlots"></div></div>
       </div>
       <div class="shoplist gsOpts" id="gsOpts"></div>
       <button id="gsClose" class="secondary">Cerrar</button>
