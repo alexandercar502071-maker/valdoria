@@ -13,7 +13,7 @@
   <link rel="manifest" href="./manifest.webmanifest" />
   <link rel="icon" href="./icon.svg" />
   <title>Valdoria · Mundo abierto</title>
-  <script type="module" crossorigin src="./assets/index-BxkZegkJ.js"></script>
+  <script type="module" crossorigin src="./assets/index-nBP1PjxI.js"></script>
   <link rel="stylesheet" crossorigin href="./assets/index-BA_LKaqo.css">
 </head>
 <body>
@@ -225,6 +225,15 @@
     </div>
   </div>
   <!-- v14: BRIEFING DE LA MISIÓN ESPECIAL -->
+  <div id="bossBar" class="hidden" style="position:fixed;top:8px;left:50%;transform:translateX(-50%);width:min(46vw,360px);z-index:30;pointer-events:none;font:600 12px system-ui;color:#fff;text-shadow:0 1px 2px #000;text-align:center"><span>☠ NODO</span><div style="height:8px;margin-top:3px;background:#0008;border:1px solid #fff6;border-radius:4px;overflow:hidden"><i style="display:block;height:100%;width:100%;background:#d8352a"></i></div></div>
+  <div id="victory" class="overlay hidden">
+    <div class="panel shoppanel briefpanel">
+      <div class="eyebrow special">🏁 Campaña principal completada</div>
+      <h2>Misión 12: El corazón de la organización</h2>
+      <div class="shoplist" id="victoryText"></div>
+      <button id="victoryOk" class="primary">Seguir jugando</button>
+    </div>
+  </div>
   <div id="brief" class="overlay hidden">
     <div class="panel shoppanel briefpanel">
       <div class="eyebrow special">☠ Misión especial</div>
