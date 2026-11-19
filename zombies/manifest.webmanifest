@@ -1,0 +1,10 @@
+{
+  "name": "Valdoria",
+  "short_name": "Valdoria",
+  "start_url": ".",
+  "display": "fullscreen",
+  "orientation": "landscape",
+  "background_color": "#15110e",
+  "theme_color": "#15110e",
+  "icons": [{ "src": "icon.svg", "sizes": "any", "type": "image/svg+xml" }]
+}
